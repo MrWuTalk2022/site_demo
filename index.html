@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前进紫檀艺术馆</title>
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 字体图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f8f5f2',
+                            100: '#f0e9e3',
+                            200: '#e0d0c1',
+                            300: '#d0b79f',
+                            400: '#c19e7d',
+                            500: '#b2855b',
+                            600: '#a36a49',
+                            700: '#85543c',
+                            800: '#6c4535',
+                            900: '#5a3a2e',
+                            950: '#301e18',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                        serif: ['Noto Serif SC', 'serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* 增加文字行间距 */
+        .prose p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 瀑布流布局样式 */
+        .masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        
+        @media (min-width: 640px) {
+            .masonry {
+                column-count: 2;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .masonry {
+                column-count: 3;
+            }
+        }
+        
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center">
+                <!-- Logo预留位置 -->
+                <div class="w-14 h-14 rounded-full bg-primary-200 dark:bg-primary-800 flex items-center justify-center mr-3">
+                    <img src="images/logo.jpg" alt="前进紫檀艺术馆Logo" class="w-10 h-10 rounded-full object-cover">
+                </div>
+                <h1 class="text-xl md:text-2xl font-serif font-bold text-primary-800 dark:text-primary-200">前进紫檀艺术馆</h1>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menu-toggle" class="md:hidden text-gray-700 dark:text-gray-300 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            
+            <!-- 导航链接 -->
+            <nav id="main-nav" class="hidden md:flex items-center space-x-8">
+                <a href="#craftsman" class="py-2 px-1 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300 transition-colors duration-300 border-b-2 border-transparent hover:border-primary-500">匠心师传</a>
+                <a href="#history" class="py-2 px-1 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300 transition-colors duration-300 border-b-2 border-transparent hover:border-primary-500">匠海流年</a>
+                <a href="#honors" class="py-2 px-1 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300 transition-colors duration-300 border-b-2 border-transparent hover:border-primary-500">匠耀四方</a>
+                <!-- <a href="#interviews" class="py-2 px-1 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300 transition-colors duration-300 border-b-2 border-transparent hover:border-primary-500">舆谈雅叙</a> -->
+                <a href="#works" class="py-2 px-1 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300 transition-colors duration-300 border-b-2 border-transparent hover:border-primary-500">典范雅作</a>
+                <!-- <a href="#creations" class="py-2 px-1 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300 transition-colors duration-300 border-b-2 border-transparent hover:border-primary-500">文创雅造</a> -->
+                
+                <!-- 深色/浅色模式切换 -->
+                <button id="theme-toggle" class="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+            </nav>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <nav id="mobile-nav" class="hidden bg-white dark:bg-gray-900 shadow-md py-3 px-4 md:hidden">
+            <div class="flex flex-col space-y-4">
+                <a href="#craftsman" class="py-2 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300">匠心师传</a>
+                <a href="#history" class="py-2 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300">匠海流年</a>
+                <a href="#honors" class="py-2 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300">匠耀四方</a>
+                <!-- <a href="#interviews" class="py-2 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300">舆谈雅叙</a> -->
+                <a href="#works" class="py-2 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300">典范雅作</a>
+                <!-- <a href="#creations" class="py-2 font-medium text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-primary-300">文创雅造</a> -->
+                
+                <div class="flex justify-between items-center pt-2 border-t border-gray-200 dark:border-gray-700">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">切换主题</span>
+                    <button id="mobile-theme-toggle" class="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- 英雄区域 -->
+        <section class="relative">
+            <div class="bg-primary-900 dark:bg-primary-950 h-[60vh] md:h-[80vh]">
+                <img src="images/xinhuaizhiyuan.png" alt="精美红木家具" class="w-full h-full object-cover opacity-60 mix-blend-normal">
+                <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
+                    <div class="max-w-4xl mx-auto fade-in">
+                        <h1 class="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4">匠心传承 · 紫檀艺术</h1>
+                        <p class="text-lg md:text-xl text-gray-200 mb-8">传承明式家具精髓，融汇古今艺术灵感</p>
+                        <a href="#craftsman" class="inline-block px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-md transition-colors duration-300 hover-scale">
+                            探索匠人世界 <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 创始人介绍 -->
+        <section class="py-16 md:py-24 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <!-- 创始人照片 -->
+                        <div class="w-full md:w-2/5 mb-8 md:mb-0">
+                            <div class="relative">
+                                <div class="absolute -top-3 -left-3 w-full h-full border-2 border-primary-500 dark:border-primary-400"></div>
+                                <img src="images/zhangshoujin.jpg" alt="张守进" class="w-full h-auto object-cover relative z-10 hover-scale">
+                            </div>
+                        </div>
+                        
+                        <!-- 创始人简介 -->
+                        <div class="w-full md:w-3/5 fade-in">
+                            <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary-800 dark:text-primary-300 mb-6">创始人简介</h2>
+                            <h3 class="text-xl md:text-2xl font-semibold mb-4">张守进</h3>
+                            <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                                <p class="italic">苏州前进小叶紫檀公司董事长、总经理</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 my-6">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>安徽省工艺美术大师</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>安徽省工艺美术名人</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>江苏轻工工匠</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>江苏省技术能手</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>苏州市劳动模范</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>苏州市民间工艺家</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>苏州市家具协会理事</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>中国古典家具协会理事</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>中国红木美学研究会副会长</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>中国紫檀文化研究会研究员</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>中华木作艺术品鉴定评估师</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>中国紫檀文化学术研究标兵</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>明式家具制作技艺正脉传承人</span>
+                                    </div>
+                                    <div class="flex items-center col-span-1 md:col-span-2">
+                                        <i class="fas fa-award text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>中华文化促进会木作文化工作委员会会员</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 text-gray-800 dark:text-gray-200">
+                                    <p class="mb-2">作品曾获安徽省第十二届工艺美术精品博览会"徽工奖"金奖</p>
+                                    <p class="mb-2">作品曾连续多年获"姑苏杯"、"苏艺杯"、"艺博杯"、"红顶杯"、"大工匠杯"等多项大赛的金奖、银奖、优秀作品奖、最佳创意奖、优秀制作奖等20多个奖项</p>
+                                    <p class="mb-2">曾担任2023中华木作雕刻与木工竞技大会行业评委</p>
+                                    <p class="mb-2">学术论文曾被"苏州工艺美术网站"收录</p>
+                                    <p class="mb-2">其创始企业"前进小叶紫檀"获"苏州市消费者满意单位"、"中国苏作家具品牌企业"等多项荣誉</p>
+                                    <p>2024年入选《苏州手工艺当代人物志（竹木核雕）》</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 匠心师传 -->
+        <section id="craftsman" class="py-16 md:py-24 bg-gray-100 dark:bg-gray-900">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary-800 dark:text-primary-300 mb-4">匠心师传</h2>
+                        <div class="w-20 h-1 bg-primary-600 mx-auto mb-6"></div>
+                        <p class="text-lg text-gray-600 dark:text-gray-400">传承匠心，延续经典</p>
+                    </div>
+                    
+                    <!-- 宋卫东大师 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden mb-16 fade-in hover-scale">
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="lg:w-2/5 p-5 flex flex-col">
+                                <h3 class="text-2xl font-bold text-primary-800 dark:text-primary-300 mb-3">宋卫东</h3>
+                                <div class="space-y-2 text-gray-700 dark:text-gray-300 mb-4">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-certificate text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>江苏省工艺美术大师</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-certificate text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>国家级非物质文化遗产明式家具制作技艺代表性传承人</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- 照片墙 -->
+                                <div class="grid grid-cols-2 gap-3 mt-auto">
+                                    <img src="images/songweidong.png" alt="宋卫东大师照片" class="w-full h-40 object-cover rounded shadow">
+                                    <img src="images/songweidongbaishitie.png" alt="拜师贴" class="w-full h-40 object-cover rounded shadow">
+                                    <img src="images/songweidongzhengshu1.png" alt="荣誉证书" class="w-full h-40 object-cover rounded shadow">
+                                    <img src="images/songweidongzhengshu2.png" alt="工作照" class="w-full h-40 object-cover rounded shadow">
+                                    <img src="images/songweidongzhengshu3.png" alt="作品照" class="w-full h-40 object-cover rounded shadow col-span-2">
+                                </div>
+                            </div>
+                            
+                            <div class="lg:w-3/5 p-6 lg:p-6 lg:border-l border-gray-200 dark:border-gray-700">
+                                <div class="prose prose-primary dark:prose-invert max-w-none">
+                                    <p>君子尚拙，以璞为真。《抱璞守进》不仅是画与图的总汇，对于前进小叶紫檀来说，是一本日记，记录着点点滴滴的创业故事：是一面镜子，照亮了时间的昨天、今天，明天：是一座丰碑，铭刻着前进小叶紫檀人的辛劳与付出：是一份对过往岁月的深情怀念：是一封写给未来的情书，书写了张守进和团队的情感与梦想。</p>
+                                    
+                                    <p>于匠人，多出新品、精品是市场需求：也是社会责任，更是历史责任。于内心，当我们年轻的时候无法懂得，当我们理解的时候已不再年轻，而这恰恰是成长的自然规律。所以，不用纠结能不能描绘阳春白雪，也不用嫌弃下里巴人，只要遵循传统的惯性，沿袭文化的脉络，坚持内心的宁静，一切肯定会刚刚好。</p>
+                                    
+                                    <p>具实，产品，是为了取悦他人，让人们在使用的舒适中感受品位的高雅，还于市场。作品，是为了取悦自己，让内心回归对技艺的传承，对文化的记录，对人生的领悟，忠于使命。</p>
+                                    
+                                    <p>"起于微末，发于华枝"，守进致艺近三十载，仿如一杯茶，满也好，少也好，不争不闹；浓也好，淡也好，自有味道：急也好，缓也好，总得其妙：暖也好，冷也好，从容一笑。他给了世界一缕阳光，而世界还了他一个春天。</p>
+                                    
+                                    <p>从艺的路上，很多时候，我们都是在寂寞中行走，但总有前人的肩膀可以依靠。也许在大匠的经验里有着同一个音符，思想也可以在同一个温度燃烧。无数前辈们交出了他们的时代答卷，铸就了苏作红木不朽的传奇，而我们却面临着当下的考题。</p>
+                                    
+                                    <p>前进小叶紫檀的创新尝试也许就是当代苏作红木发展的一个缩影。作为苏作红木家具的优秀代表，在张守进的带领下，前进小叶紫檀不但传承了原汁原味的传统苏作技艺，而且不断开发出集功能性、实用性、观赏性于一体的新家具。在老一辈匠作大师举世无双的智慧指引下，又赋予了苏作红木作品时代的意义，为生活增加了高雅化、精致化的家具语言。</p>
+                                    
+                                    <p>细数《抱璞守进》中前进小叶紫檀所获得的荣誉，无论是单品还是空间套系，都是守进个人和团队经年累月的呕心沥血之作。坚持一时易，几十年坚守难！人，天生都有惰性，总想着吃最少的苦，走最短的弯路，获得最大的收益。但像苏作红木技艺这样的事情，别人无法替你做，更无法替你感受，缺少这一路走来的历程，难有成功可言。而成功的快乐，收获的满足，不止于奋斗的终点，还有拼搏的过程，书中所载，历历在目。</p>
+                                    
+                                    <p>人人皆懂，月亏则圆，月圆则亏。可能人生的至境，一味的"进"或一味的"退"，都不是最好的状态。故抱璞，故守进，也许源自"淡"字，淡字，半是水，半是火；也揭示了在求索的路上，一半是披荆斩棘，一半是急流勇退。水火不融，在这一刻融会贯通，道出了"淡"的真味：刚柔相济。与此共勉！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 许家千大师 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden fade-in hover-scale">
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="lg:w-2/5 p-5 flex flex-col">
+                                <h3 class="text-2xl font-bold text-primary-800 dark:text-primary-300 mb-3">许家千</h3>
+                                <div class="space-y-2 text-gray-700 dark:text-gray-300 mb-4">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-certificate text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>江苏省工艺美术大师</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-certificate text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>江苏省轻工业行业十大工匠</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-certificate text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>江苏省劳动模范</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-certificate text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>江苏省非物质文化遗产明式家具制作技艺代表性传承人</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-certificate text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>研究员级高级工艺美术师</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-certificate text-primary-600 dark:text-primary-400 mr-2"></i>
+                                        <span>苏州民家工艺家评审委员会委员</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- 照片墙 -->
+                                <div class="grid grid-cols-2 gap-3 mt-auto">
+                                    <img src="images/xujiaqian.png" alt="许家千大师照片" class="w-full h-40 object-cover rounded shadow">
+                                    <img src="images/xujiaqianzhengshu1.png" alt="工作场景" class="w-full h-40 object-cover rounded shadow">
+                                    <img src="images/xujiaqianzhengshu2.png" alt="荣誉证书" class="w-full h-40 object-cover rounded shadow">
+                                    <img src="images/xujiaqianzhengshu3.png" alt="作品展示" class="w-full h-40 object-cover rounded shadow">
+                                    <img src="images/xujiaqianzhengshu4.png" alt="传授技艺" class="w-full h-40 object-cover rounded shadow col-span-2">
+                                </div>
+                            </div>
+                            
+                            <div class="lg:w-3/5 p-6 lg:p-6 lg:border-l border-gray-200 dark:border-gray-700">
+                                <div class="prose prose-primary dark:prose-invert max-w-none">
+                                    <p>在每一个行业的发展中，总有那么一些人，他们以匠人之心，雕琢时光，以艺木之魂，熔铸经典。前进，便是苏作红木行业中一位杰出的少壮派。</p>
+                                    
+                                    <p>自幼，前进便与美结下了不解之缘。在徽派美学的熏陶之下，使得他对艺术有着天然的敏感与向往。在老一辈艺人的言传身教中，他逐渐明确了自己的志向——成为一名能够传承与发扬中国传统红木文化的匠人。</p>
+                                    
+                                    <p>上世纪九十年代，是一个变革与机遇并存的时代。怀揣着对艺术的无限热爱与憧憬，他踏上了前往苏州的征途。苏州，这座历史悠久、文化底蕴深厚的城市，不仅是苏作家具的发源地，更是中国传统家具艺术的瑰宝之地。在这里，他选择了当时享有盛誉的浩强红木工艺家具厂作为自己艺术生涯的起点。</p>
+                                    
+                                    <p>进入浩强红木，对他而言既是一次难得的学习机会也是一场严峻的挑战。他深知，要想在这片艺术的沃土上生根发芽，必须付出比常人更多的努力与汗水。于是，他开始了日复一日、年复一年的刻苦学习。从选材、开料、雕刻到组装、打磨、上漆，每一个环节他都亲力亲为，力求做到最好。在师傅们的悉心指导下，前进不仅掌握了传统苏作家具的制作技艺，更深刻理解了其背后的文化内涵与艺术价值。</p>
+                                    
+                                    <p>然而，追求不止于此。在他看来，真正的艺术是在传承中不断创新，在继承中寻求突破，这已成为他的根。于是，他尝试将现代设计理念注入传统苏作家具之中，既保留了其古朴典雅的韵味，又赋予了其更加符合现代审美的元素与功能。这种勇于探索、敢于创新的精神，让他在苏作家具的艺术天地里逐渐崭露头角，慢慢成为同龄人中的佼佼者。</p>
+                                    
+                                    <p>在前进的世界里，人生就像红木，经历了风雨的洗礼，才能绽放出更加绚烂的光彩。通过自己在苏作家具艺海中几十年的耕耘，以及在行业内领导和师傅们的扶持、鼓励、关怀下获得了累累硕果。如今，他的作品已经成为了苏作家具的一张名片，凝聚着对艺术的热爱与敬畏，对传统的尊重与创新，以及对未来的憧憬与期待。</p>
+                                    
+                                    <p>前进的故事，是对"匠心"二字的最好诠释。在这个快节奏的时代，他用实际行动证明书写着属于自己的传奇，让苏作家具这一古老的艺术形式，在新时代焕发出了新的生机与活力。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 匠海流年 -->
+        <section id="history" class="py-16 md:py-24 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary-800 dark:text-primary-300 mb-4">匠海流年</h2>
+                        <div class="w-20 h-1 bg-primary-600 mx-auto mb-6"></div>
+                        <p class="text-lg text-gray-600 dark:text-gray-400">匠人历程，传承不息</p>
+                    </div>
+                    
+                    <!-- 时间线 -->
+                    <div class="relative">
+                        <!-- 竖线 -->
+                        <div class="absolute left-4 md:left-1/2 top-0 bottom-0 transform md:-translate-x-1/2 w-1 bg-primary-200 dark:bg-primary-900"></div>
+                        
+                        <!-- 技优博彩众长 -->
+                        <div class="relative z-10 mb-20">
+                            <div class="flex flex-col md:flex-row items-start md:items-center">
+                                <div class="pl-12 md:pl-0 md:w-1/2 mb-8 md:mb-0 md:pr-12 md:text-right fade-in">
+                                    <h3 class="text-2xl font-bold text-primary-800 dark:text-primary-300 mb-4">技优博彩众长</h3>
+                                    <div class="prose prose-primary dark:prose-invert max-w-none text-left">
+                                        <p>1981 年，张前进出生于安徽宿萧县。受老一辈手艺人的熏陶，小时便立志学艺。</p>
+                                        
+                                        <p>1997 年，年仅 16 岁的他独自闯荡，第一份工作便是来到苏州浩强红木工艺家具厂。从最基础的打磨工学起，开始了自己的红木生涯。能吃苦、能坚持、勤学习，厂里的老师傅们成了他的学习拜访对象，正是凭着这样的劲头，技术进步飞速、并练就了一身扎实的基本功，两年之后，被安排转学木工，对红木的兴趣也越来越浓厚。</p>
+                                        
+                                        <p>学艺，是个干锤百炼方有蜕变的过程。为了真正将手艺练到家，他敏锐地察觉到绝不能故步自封，要去外面继续精进技艺，于是又辗转杭州、无锡多地悉心求教，最终缘分使然，又回到了苏州。</p>
+                                        
+                                        <p>2000年，他来到苏福红木工艺厂，并拜非物质文化遗产明式家具制作技艺代表性传承人宋卫东大师为师，继续磨练技艺，逐渐摸索并开始形成自己的风格。但求知的脚步并未停止，非科班出身的他利用工作之余选读了南京工程学院园林设计专业，并不断拜访行业前辈、技术专家，从看料、选料、设计到制作......每一个环节都已熟稔于心。这时的他已经拥有了足够的底气，在各种大赛中开始崭露头角，而如今在他的作品上，不难发现一种博采众长的独到之美。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="absolute left-0 md:static md:w-10 flex justify-center">
+                                    <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-600 dark:bg-primary-500 flex items-center justify-center shadow-lg">
+                                        <i class="fas fa-seedling text-white"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="pl-12 md:pl-0 md:w-1/2 md:pl-12 fade-in">
+                                    <img src="images/bocaizhongchang.png" alt="年轻时的张前进" class="w-full h-auto rounded-lg shadow-md hover-scale">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 艺高心怀远志 -->
+                        <div class="relative z-10">
+                            <div class="flex flex-col md:flex-row items-start md:items-center">
+                                <div class="pl-12 md:pl-0 md:w-1/2 mb-8 md:mb-0 md:pr-12 order-2 md:order-1 fade-in">
+                                    <img src="images/xinhuaizhiyuan.png" alt="前进紫檀艺术馆" class="w-full h-auto rounded-lg shadow-md hover-scale">
+                                </div>
+                                
+                                <div class="absolute left-0 md:static md:w-10 flex justify-center order-1 md:order-2">
+                                    <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-600 dark:bg-primary-500 flex items-center justify-center shadow-lg">
+                                        <i class="fas fa-mountain text-white"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="pl-12 md:pl-0 md:w-1/2 md:pl-12 order-3 fade-in">
+                                    <h3 class="text-2xl font-bold text-primary-800 dark:text-primary-300 mb-4">艺高心怀远志</h3>
+                                    <div class="prose prose-primary dark:prose-invert max-w-none">
+                                        <p>2009 年，红木家具行业发展迅速。在如此的形势之下，张前进抓住时机创办企业，而这一决定，孕育出的结果便是如今苏作红木家具艺术的代表性企业——前进小叶紫檀。</p>
+                                        
+                                        <p>"诚信、守法、传承技艺精髓，制作红木精品。" 自企业创办以来，张前进始终坚守这样的理念，企业效益逐年增长。2011 年，公司拥有了近4000 平米的展厅；2017 年，公司厂房面积已达到 10000 多平米。企业成立至今，已形成规模化发展。</p>
+                                        
+                                        <p>做人一丝不苟，做事从一而终，忙于企业管理的同时，手艺也并未放松。不懈努力加上持之以恒的磨练，他的手艺已达到纯熟。2018 年，张前进被授予"江苏省技术能手"称号；2022 年和 2023 年，先后被授予"安徽省工艺美术名人" 和"安徽省工艺美术大师" 称号。</p>
+                                        
+                                        <p>如今，张前进的苏作红木艺术愈发成熟，对苏作红木文化的推广与弘扬更是不遗余力。从业至今，不仅收徒传艺传授明式家具传统技艺，2023 年，"前进紫檀艺术馆" 也正式落成。馆内精品荟萃，所展作品均为他的精品力作，各式苏作明式家具在这里交融辉映，给人视觉震撼之余，还可深刻体味中华文化的无限魅力。</p>
+                                        
+                                        <p>怀揣让苏作明式红木艺术闪耀于更广阔舞台的远志，张前进踏踏实实走好每一步，真正诠释了一个手艺人的匠心与情怀。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 匠耀四方 -->
+        <section id="honors" class="py-16 md:py-24 bg-gray-100 dark:bg-gray-900">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary-800 dark:text-primary-300 mb-4">匠耀四方</h2>
+                        <div class="w-20 h-1 bg-primary-600 mx-auto mb-6"></div>
+                        <p class="text-lg text-gray-600 dark:text-gray-400">荣誉见证，匠心永恒</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- 荣誉证书 1 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page1.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">徽工奖金奖</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">安徽省第十二届工艺美术精品博览会</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 荣誉证书 2 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page2.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">姑苏杯金奖</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">苏州工艺美术精品大赛</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 荣誉证书 3 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page3.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">苏艺杯优秀作品奖</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">江苏省工艺美术大赛</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 荣誉证书 4 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page4.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">艺博杯银奖</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">中国工艺美术博览会</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 荣誉证书 5 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page5.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">红顶杯最佳创意奖</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">中国传统工艺创新大赛</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 荣誉证书 6 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page6.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">大工匠杯优秀制作奖</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">中国家具制作工艺大赛</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 荣誉证书 7 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page7.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">安徽省工艺美术大师</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">荣誉证书 - 2023年</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 荣誉证书 8 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page8.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">江苏省技术能手</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">荣誉证书 - 2018年</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 荣誉证书 9 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page9.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">苏州市劳动模范</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">荣誉证书</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 荣誉证书 10 -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in lg:col-start-2">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
+                                <img src="images/产品认证证书jpg_Page10.jpg" alt="荣誉证书" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-bold text-primary-800 dark:text-primary-300">中国紫檀文化研究贡献人物</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">荣誉证书</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 典范雅作 -->
+        <section id="works" class="py-16 md:py-24 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-primary-800 dark:text-primary-300 mb-4">典范雅作</h2>
+                        <div class="w-20 h-1 bg-primary-600 mx-auto mb-6"></div>
+                        <p class="text-lg text-gray-600 dark:text-gray-400">匠心之作，经典传承</p>
+                    </div>
+                    
+                    <!-- 瀑布流布局 -->
+                    <div class="masonry">
+                        <!-- 作品 1 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin1.png" alt="紫檀圈椅" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 2 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin2.png" alt="紫檀官帽椅" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 3 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin3.png" alt="紫檀书案" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 4 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin4.png" alt="紫檀雕花屏风" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 5 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin5.png" alt="紫檀茶桌组合" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 6 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin6.png" alt="紫檀花架" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 7 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin7.png" alt="紫檀博古架" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 8 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin8.png" alt="紫檀供桌" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 9 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin9.png" alt="紫檀长案" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 10 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin10.png" alt="紫檀作品" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 11 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin11.png" alt="紫檀作品" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 12 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin12.png" alt="紫檀作品" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 13 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin13.png" alt="紫檀作品" class="w-full h-auto object-cover">
+                        </div>
+                        
+                        <!-- 作品 14 -->
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                            <img src="images/chanpin14.png" alt="紫檀作品" class="w-full h-auto object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- 联系方式 -->
+                    <div>
+                        <h3 class="text-xl font-bold text-primary-300 mb-4">联系我们</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 mr-3 text-primary-400"></i>
+                                <span>苏州市吴中区郭巷街道淞江路98号前进紫檀艺术馆</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone mr-3 text-primary-400"></i>
+                                <span>0512-66626789</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-mobile-alt mr-3 text-primary-400"></i>
+                                <span>13912795896</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope mr-3 text-primary-400"></i>
+                                <span>qianjinzitan@163.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 艺术馆信息 -->
+                    <div>
+                        <h3 class="text-xl font-bold text-primary-300 mb-4">开放时间</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-clock mr-3 text-primary-400"></i>
+                                <span>周一至周日: 9:00 - 17:00</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-info-circle mr-3 text-primary-400"></i>
+                                <span>国家法定节假日正常开放</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-user-friends mr-3 text-primary-400"></i>
+                                <span>团体参观请提前预约</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 关注我们 -->
+                    <div>
+                        <h3 class="text-xl font-bold text-primary-300 mb-4">关注我们</h3>
+                        <p class="mb-4">扫描下方二维码，关注我们的官方账号</p>
+                        <div class="flex space-x-4">
+                            <div class="text-center">
+                                <div class="w-24 h-24 bg-white rounded-md mb-2 flex items-center justify-center">
+                                    <i class="fas fa-qrcode text-4xl text-gray-400"></i>
+                                </div>
+                                <p class="text-sm">微信公众号</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-24 h-24 bg-white rounded-md mb-2 flex items-center justify-center">
+                                    <i class="fas fa-qrcode text-4xl text-gray-400"></i>
+                                </div>
+                                <p class="text-sm">抖音号</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400">
+                    <p>© 2024 前进紫檀艺术馆 版权所有 | 苏ICP备xxxxxxxx号</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // 工具函数：检查系统首选颜色方案
+        function getPreferredColorScheme() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+            return 'light';
+        }
+
+        // 应用主题
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // 切换主题
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                applyTheme('light');
+            } else {
+                applyTheme('dark');
+            }
+        }
+
+        // 初始化主题
+        function initializeTheme() {
+            // 检查本地存储
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else {
+                // 使用系统首选方案
+                applyTheme(getPreferredColorScheme());
+            }
+        }
+
+        // 事件监听器
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化主题
+            initializeTheme();
+            
+            // 菜单切换
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            
+            if (menuToggle && mobileNav) {
+                menuToggle.addEventListener('click', function() {
+                    mobileNav.classList.toggle('hidden');
+                });
+            }
+            
+            // 主题切换
+            const themeToggle = document.getElementById('theme-toggle');
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
+            
+            if (mobileThemeToggle) {
+                mobileThemeToggle.addEventListener('click', toggleTheme);
+            }
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // 如果是在移动导航中点击，则关闭导航
+                        if (mobileNav && !mobileNav.classList.contains('hidden')) {
+                            mobileNav.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+            
+            // 检测滚动显示回到顶部按钮
+            const backToTop = document.getElementById('back-to-top');
+            if (backToTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 300) {
+                        backToTop.classList.remove('hidden');
+                    } else {
+                        backToTop.classList.add('hidden');
+                    }
+                });
+                
+                // 添加回到顶部按钮点击事件
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+
+    <!-- 回到顶部按钮 -->
+    <div id="back-to-top" class="fixed bottom-6 right-6 z-50 hidden">
+        <button class="p-3 rounded-full bg-primary-600 text-white shadow-lg hover:bg-primary-700 transition-colors duration-300 focus:outline-none">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+</body>
+</html> 
