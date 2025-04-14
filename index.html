@@ -43,22 +43,231 @@
             font-family: 'Noto Sans SC', sans-serif;
         }
         
+        /* 添加渐变背景色 */
+        .section-hero {
+            background: linear-gradient(to bottom, rgba(166, 127, 98, 0.1), rgba(255, 255, 255, 0.8));
+        }
+        
+        .section-craftsman {
+            background: linear-gradient(135deg, #f8f5f2 0%, #eee6dd 100%);
+        }
+        
+        .section-history {
+            background: linear-gradient(135deg, #f0e9e3 0%, #e8e0d5 100%);
+        }
+        
+        .section-honors {
+            background: linear-gradient(135deg, #efe6dd 0%, #e5dbd0 100%);
+        }
+        
+        .section-works {
+            background: linear-gradient(135deg, #f5efe8 0%, #ebe3d9 100%);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(to bottom, #4a3426, #2d1810);
+        }
+        
+        /* 改进的字体样式 */
+        h1, h2, h3, h4, h5, h6 {
+            letter-spacing: -0.02em;
+        }
+        
+        p, li {
+            letter-spacing: 0.01em;
+            line-height: 1.8;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.75rem !important;
+            }
+            h2 {
+                font-size: 1.5rem !important;
+            }
+            h3 {
+                font-size: 1.25rem !important;
+            }
+            p, li {
+                font-size: 0.95rem !important;
+                line-height: 1.6 !important;
+            }
+        }
+        
+        /* 加载动画 */
+        .loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            transition: opacity 0.3s ease-out;
+        }
+        
+        .dark .loading-container {
+            background-color: rgba(17, 24, 39, 0.9);
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(166, 127, 98, 0.2);
+            border-top: 4px solid #a67f62;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loading-text {
+            margin-top: 1.5rem;
+            font-size: 1.125rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .dark .loading-text {
+            color: #e5e7eb;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 增强动画效果 */
         .fade-in {
             animation: fadeIn 0.8s ease-in;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease forwards;
+        }
+        
+        .slide-left {
+            opacity: 0;
+            transform: translateX(30px);
+            animation: slideLeft 0.8s ease forwards;
+        }
+        
+        .slide-right {
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideRight 0.8s ease forwards;
+        }
+        
+        .fade-in-delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .fade-in-delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .fade-in-delay-300 {
+            animation-delay: 0.3s;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideLeft {
+            from { 
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideRight {
+            from { 
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* 元素悬浮效果 */
         .hover-scale {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .hover-scale:hover {
             transform: scale(1.02);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -10px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* 增加卡片立体感 */
+        .card-3d {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .card-3d:hover {
+            transform: translateY(-5px) rotateX(2deg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* 按钮悬浮效果 */
+        .btn-hover {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hover:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        .btn-hover:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn-hover:hover:before {
+            width: 100%;
         }
         
         /* 增加文字行间距 */
@@ -88,10 +297,17 @@
         .masonry-item {
             break-inside: avoid;
             margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- 加载指示器 -->
+    <div id="loading" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">正在加载，请稍候...</p>
+    </div>
+
     <!-- 导航栏 -->
     <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -148,14 +364,14 @@
     
     <main>
         <!-- 英雄区域 -->
-        <section class="relative">
+        <section class="relative section-hero">
             <div class="bg-primary-900 dark:bg-primary-950 h-[60vh] md:h-[80vh]">
                 <img src="images/xinhuaizhiyuan.png" alt="精美红木家具" class="w-full h-full object-cover opacity-60 mix-blend-normal">
                 <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
-                    <div class="max-w-4xl mx-auto fade-in">
+                    <div class="max-w-4xl mx-auto slide-up">
                         <h1 class="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4">匠心传承 · 紫檀艺术</h1>
                         <p class="text-lg md:text-xl text-gray-200 mb-8">传承明式家具精髓，融汇古今艺术灵感</p>
-                        <a href="#craftsman" class="inline-block px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-md transition-colors duration-300 hover-scale">
+                        <a href="#craftsman" class="inline-block px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-md transition-colors duration-300 btn-hover">
                             探索匠人世界 <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
@@ -164,7 +380,7 @@
         </section>
         
         <!-- 创始人介绍 -->
-        <section class="py-16 md:py-24 bg-white dark:bg-gray-800">
+        <section class="py-16 md:py-24 bg-white dark:bg-gray-800 section-craftsman">
             <div class="container mx-auto px-4">
                 <div class="max-w-6xl mx-auto">
                     <div class="flex flex-col md:flex-row items-center gap-8">
@@ -258,7 +474,7 @@
         </section>
         
         <!-- 匠心师传 -->
-        <section id="craftsman" class="py-16 md:py-24 bg-gray-100 dark:bg-gray-900">
+        <section id="craftsman" class="py-16 md:py-24 section-craftsman">
             <div class="container mx-auto px-4">
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-16">
@@ -268,9 +484,9 @@
                     </div>
                     
                     <!-- 宋卫东大师 -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden mb-16 fade-in hover-scale">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden mb-16 fade-in card-3d">
                         <div class="flex flex-col lg:flex-row">
-                            <div class="lg:w-2/5 p-5 flex flex-col">
+                            <div class="lg:w-2/5 p-5 flex flex-col slide-right">
                                 <h3 class="text-2xl font-bold text-primary-800 dark:text-primary-300 mb-3">宋卫东</h3>
                                 <div class="space-y-2 text-gray-700 dark:text-gray-300 mb-4">
                                     <div class="flex items-center">
@@ -285,15 +501,15 @@
                                 
                                 <!-- 照片墙 -->
                                 <div class="grid grid-cols-2 gap-3 mt-auto">
-                                    <img src="images/songweidong.png" alt="宋卫东大师照片" class="w-full h-40 object-cover rounded shadow">
-                                    <img src="images/songweidongbaishitie.png" alt="拜师贴" class="w-full h-40 object-cover rounded shadow">
-                                    <img src="images/songweidongzhengshu1.png" alt="荣誉证书" class="w-full h-40 object-cover rounded shadow">
-                                    <img src="images/songweidongzhengshu2.png" alt="工作照" class="w-full h-40 object-cover rounded shadow">
-                                    <img src="images/songweidongzhengshu3.png" alt="作品照" class="w-full h-40 object-cover rounded shadow col-span-2">
+                                    <img src="images/songweidong.png" alt="宋卫东大师照片" class="w-full h-40 object-cover rounded shadow hover-scale">
+                                    <img src="images/songweidongbaishitie.png" alt="拜师贴" class="w-full h-40 object-cover rounded shadow hover-scale">
+                                    <img src="images/songweidongzhengshu1.png" alt="荣誉证书" class="w-full h-40 object-cover rounded shadow hover-scale">
+                                    <img src="images/songweidongzhengshu2.png" alt="工作照" class="w-full h-40 object-cover rounded shadow hover-scale">
+                                    <img src="images/songweidongzhengshu3.png" alt="作品照" class="w-full h-40 object-cover rounded shadow col-span-2 hover-scale">
                                 </div>
                             </div>
                             
-                            <div class="lg:w-3/5 p-6 lg:p-6 lg:border-l border-gray-200 dark:border-gray-700">
+                            <div class="lg:w-3/5 p-6 lg:p-6 lg:border-l border-gray-200 dark:border-gray-700 slide-left">
                                 <div class="prose prose-primary dark:prose-invert max-w-none">
                                     <p>君子尚拙，以璞为真。《抱璞守进》不仅是画与图的总汇，对于前进小叶紫檀来说，是一本日记，记录着点点滴滴的创业故事：是一面镜子，照亮了时间的昨天、今天，明天：是一座丰碑，铭刻着前进小叶紫檀人的辛劳与付出：是一份对过往岁月的深情怀念：是一封写给未来的情书，书写了张守进和团队的情感与梦想。</p>
                                     
@@ -316,9 +532,9 @@
                     </div>
                     
                     <!-- 许家千大师 -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden fade-in hover-scale">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden fade-in card-3d">
                         <div class="flex flex-col lg:flex-row">
-                            <div class="lg:w-2/5 p-5 flex flex-col">
+                            <div class="lg:w-2/5 p-5 flex flex-col slide-right">
                                 <h3 class="text-2xl font-bold text-primary-800 dark:text-primary-300 mb-3">许家千</h3>
                                 <div class="space-y-2 text-gray-700 dark:text-gray-300 mb-4">
                                     <div class="flex items-center">
@@ -349,15 +565,15 @@
                                 
                                 <!-- 照片墙 -->
                                 <div class="grid grid-cols-2 gap-3 mt-auto">
-                                    <img src="images/xujiaqian.png" alt="许家千大师照片" class="w-full h-40 object-cover rounded shadow">
-                                    <img src="images/xujiaqianzhengshu1.png" alt="工作场景" class="w-full h-40 object-cover rounded shadow">
-                                    <img src="images/xujiaqianzhengshu2.png" alt="荣誉证书" class="w-full h-40 object-cover rounded shadow">
-                                    <img src="images/xujiaqianzhengshu3.png" alt="作品展示" class="w-full h-40 object-cover rounded shadow">
-                                    <img src="images/xujiaqianzhengshu4.png" alt="传授技艺" class="w-full h-40 object-cover rounded shadow col-span-2">
+                                    <img src="images/xujiaqian.png" alt="许家千大师照片" class="w-full h-40 object-cover rounded shadow hover-scale">
+                                    <img src="images/xujiaqianzhengshu1.png" alt="工作场景" class="w-full h-40 object-cover rounded shadow hover-scale">
+                                    <img src="images/xujiaqianzhengshu2.png" alt="荣誉证书" class="w-full h-40 object-cover rounded shadow hover-scale">
+                                    <img src="images/xujiaqianzhengshu3.png" alt="作品展示" class="w-full h-40 object-cover rounded shadow hover-scale">
+                                    <img src="images/xujiaqianzhengshu4.png" alt="传授技艺" class="w-full h-40 object-cover rounded shadow col-span-2 hover-scale">
                                 </div>
                             </div>
                             
-                            <div class="lg:w-3/5 p-6 lg:p-6 lg:border-l border-gray-200 dark:border-gray-700">
+                            <div class="lg:w-3/5 p-6 lg:p-6 lg:border-l border-gray-200 dark:border-gray-700 slide-left">
                                 <div class="prose prose-primary dark:prose-invert max-w-none">
                                     <p>在每一个行业的发展中，总有那么一些人，他们以匠人之心，雕琢时光，以艺木之魂，熔铸经典。前进，便是苏作红木行业中一位杰出的少壮派。</p>
                                     
@@ -381,7 +597,7 @@
         </section>
         
         <!-- 匠海流年 -->
-        <section id="history" class="py-16 md:py-24 bg-white dark:bg-gray-800">
+        <section id="history" class="py-16 md:py-24 section-history">
             <div class="container mx-auto px-4">
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-16">
@@ -398,7 +614,7 @@
                         <!-- 技优博彩众长 -->
                         <div class="relative z-10 mb-20">
                             <div class="flex flex-col md:flex-row items-start md:items-center">
-                                <div class="pl-12 md:pl-0 md:w-1/2 mb-8 md:mb-0 md:pr-12 md:text-right fade-in">
+                                <div class="pl-12 md:pl-0 md:w-1/2 mb-8 md:mb-0 md:pr-12 md:text-right fade-in slide-right">
                                     <h3 class="text-2xl font-bold text-primary-800 dark:text-primary-300 mb-4">技优博彩众长</h3>
                                     <div class="prose prose-primary dark:prose-invert max-w-none text-left">
                                         <p>1981 年，张前进出生于安徽宿萧县。受老一辈手艺人的熏陶，小时便立志学艺。</p>
@@ -417,7 +633,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="pl-12 md:pl-0 md:w-1/2 md:pl-12 fade-in">
+                                <div class="pl-12 md:pl-0 md:w-1/2 md:pl-12 fade-in slide-left">
                                     <img src="images/bocaizhongchang.png" alt="年轻时的张前进" class="w-full h-auto rounded-lg shadow-md hover-scale">
                                 </div>
                             </div>
@@ -426,7 +642,7 @@
                         <!-- 艺高心怀远志 -->
                         <div class="relative z-10">
                             <div class="flex flex-col md:flex-row items-start md:items-center">
-                                <div class="pl-12 md:pl-0 md:w-1/2 mb-8 md:mb-0 md:pr-12 order-2 md:order-1 fade-in">
+                                <div class="pl-12 md:pl-0 md:w-1/2 mb-8 md:mb-0 md:pr-12 order-2 md:order-1 fade-in slide-right">
                                     <img src="images/xinhuaizhiyuan.png" alt="前进紫檀艺术馆" class="w-full h-auto rounded-lg shadow-md hover-scale">
                                 </div>
                                 
@@ -436,7 +652,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="pl-12 md:pl-0 md:w-1/2 md:pl-12 order-3 fade-in">
+                                <div class="pl-12 md:pl-0 md:w-1/2 md:pl-12 order-3 fade-in slide-left">
                                     <h3 class="text-2xl font-bold text-primary-800 dark:text-primary-300 mb-4">艺高心怀远志</h3>
                                     <div class="prose prose-primary dark:prose-invert max-w-none">
                                         <p>2009 年，红木家具行业发展迅速。在如此的形势之下，张前进抓住时机创办企业，而这一决定，孕育出的结果便是如今苏作红木家具艺术的代表性企业——前进小叶紫檀。</p>
@@ -458,7 +674,7 @@
         </section>
         
         <!-- 匠耀四方 -->
-        <section id="honors" class="py-16 md:py-24 bg-gray-100 dark:bg-gray-900">
+        <section id="honors" class="py-16 md:py-24 section-honors">
             <div class="container mx-auto px-4">
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-16">
@@ -469,7 +685,7 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <!-- 荣誉证书 1 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-100">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page1.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -480,7 +696,7 @@
                         </div>
                         
                         <!-- 荣誉证书 2 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-200">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page2.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -491,7 +707,7 @@
                         </div>
                         
                         <!-- 荣誉证书 3 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-300">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page3.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -502,7 +718,7 @@
                         </div>
                         
                         <!-- 荣誉证书 4 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-100">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page4.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -513,7 +729,7 @@
                         </div>
                         
                         <!-- 荣誉证书 5 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-200">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page5.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -524,7 +740,7 @@
                         </div>
                         
                         <!-- 荣誉证书 6 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-300">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page6.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -535,7 +751,7 @@
                         </div>
                         
                         <!-- 荣誉证书 7 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-100">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page7.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -546,7 +762,7 @@
                         </div>
                         
                         <!-- 荣誉证书 8 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-200">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page8.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -557,7 +773,7 @@
                         </div>
                         
                         <!-- 荣誉证书 9 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-300">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page9.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -568,7 +784,7 @@
                         </div>
                         
                         <!-- 荣誉证书 10 -->
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-scale fade-in lg:col-start-2">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden card-3d fade-in fade-in-delay-100 lg:col-start-2">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 dark:bg-gray-700">
                                 <img src="images/产品认证证书jpg_Page10.jpg" alt="荣誉证书" class="w-full h-full object-cover">
                             </div>
@@ -583,7 +799,7 @@
         </section>
         
         <!-- 典范雅作 -->
-        <section id="works" class="py-16 md:py-24 bg-white dark:bg-gray-800">
+        <section id="works" class="py-16 md:py-24 section-works">
             <div class="container mx-auto px-4">
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-16">
@@ -595,72 +811,72 @@
                     <!-- 瀑布流布局 -->
                     <div class="masonry">
                         <!-- 作品 1 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin1.png" alt="紫檀圈椅" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 2 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin2.png" alt="紫檀官帽椅" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 3 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin3.png" alt="紫檀书案" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 4 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin4.png" alt="紫檀雕花屏风" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 5 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin5.png" alt="紫檀茶桌组合" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 6 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin6.png" alt="紫檀花架" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 7 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin7.png" alt="紫檀博古架" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 8 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin8.png" alt="紫檀供桌" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 9 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin9.png" alt="紫檀长案" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 10 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin10.png" alt="紫檀作品" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 11 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin11.png" alt="紫檀作品" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 12 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin12.png" alt="紫檀作品" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 13 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin13.png" alt="紫檀作品" class="w-full h-auto object-cover">
                         </div>
                         
                         <!-- 作品 14 -->
-                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover-scale fade-in">
+                        <div class="masonry-item bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden card-3d fade-in">
                             <img src="images/chanpin14.png" alt="紫檀作品" class="w-full h-auto object-cover">
                         </div>
                     </div>
@@ -670,7 +886,7 @@
     </main>
     
     <!-- 页脚 -->
-    <footer class="bg-gray-900 text-white py-12">
+    <footer class="footer-gradient text-white py-12">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -746,6 +962,108 @@
     
     <!-- JavaScript -->
     <script>
+        // 显示加载指示器
+        function showLoading() {
+            document.getElementById('loading').style.display = 'flex';
+        }
+
+        // 隐藏加载指示器
+        function hideLoading() {
+            document.getElementById('loading').style.opacity = '0';
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('loading').style.opacity = '1';
+            }, 300);
+        }
+
+        // 监听图片加载
+        function trackImageLoading() {
+            const images = document.querySelectorAll('img');
+            let loadedImages = 0;
+            const totalImages = images.length;
+            
+            // 如果没有图片，直接隐藏加载指示器
+            if(totalImages === 0) {
+                hideLoading();
+                return;
+            }
+            
+            // 更新加载文本
+            function updateLoadingText() {
+                const percent = Math.round((loadedImages / totalImages) * 100);
+                const loadingText = document.querySelector('.loading-text');
+                if(loadingText) {
+                    loadingText.textContent = `正在加载 (${percent}%)，请稍候...`;
+                }
+            }
+            
+            // 监听每张图片的加载
+            images.forEach(img => {
+                // 已经加载完成的图片
+                if(img.complete) {
+                    loadedImages++;
+                    updateLoadingText();
+                    if(loadedImages === totalImages) {
+                        hideLoading();
+                    }
+                } else {
+                    // 未加载完成的图片，添加监听
+                    img.addEventListener('load', function() {
+                        loadedImages++;
+                        updateLoadingText();
+                        if(loadedImages === totalImages) {
+                            hideLoading();
+                        }
+                    });
+                    
+                    // 图片加载失败
+                    img.addEventListener('error', function() {
+                        img.style.display = 'none';
+                        const errorText = document.createElement('div');
+                        errorText.className = 'text-gray-500 dark:text-gray-400 text-sm p-4 text-center';
+                        errorText.textContent = '图片加载失败';
+                        if(img.parentNode) {
+                            img.parentNode.appendChild(errorText);
+                        }
+                        
+                        loadedImages++;
+                        updateLoadingText();
+                        if(loadedImages === totalImages) {
+                            hideLoading();
+                        }
+                    });
+                }
+            });
+        }
+        
+        // 页面加载完成时
+        window.addEventListener('load', function() {
+            // 延迟一点隐藏加载动画，让用户感知到
+            setTimeout(hideLoading, 500);
+        });
+        
+        // 动画效果 - 滚动显示
+        function setupScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.fade-in, .slide-up, .slide-left, .slide-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+
         // 工具函数：检查系统首选颜色方案
         function getPreferredColorScheme() {
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -789,8 +1107,17 @@
 
         // 事件监听器
         document.addEventListener('DOMContentLoaded', function() {
+            // 显示加载指示器
+            showLoading();
+            
+            // 跟踪图片加载
+            trackImageLoading();
+            
             // 初始化主题
             initializeTheme();
+            
+            // 设置滚动动画
+            setupScrollAnimations();
             
             // 菜单切换
             const menuToggle = document.getElementById('menu-toggle');
@@ -860,10 +1187,18 @@
     </script>
 
     <!-- 回到顶部按钮 -->
-    <div id="back-to-top" class="fixed bottom-6 right-6 z-50 hidden">
+    <div id="back-to-top" class="fixed bottom-6 right-6 z-50 hidden transition-all duration-300 transform hover:scale-110">
         <button class="p-3 rounded-full bg-primary-600 text-white shadow-lg hover:bg-primary-700 transition-colors duration-300 focus:outline-none">
             <i class="fas fa-arrow-up"></i>
         </button>
     </div>
+    
+    <!-- PDF下载按钮 - 位于回到顶部按钮上方 -->
+    <a href="documents/抱璞守进.pdf" download id="download-pdf" class="fixed bottom-20 right-6 z-50 transition-all duration-300 transform hover:scale-110">
+        <button class="p-3 rounded-full bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300 focus:outline-none group relative">
+            <i class="fas fa-file-pdf"></i>
+            <span class="tooltip-text absolute right-full mr-2 top-1/2 -translate-y-1/2 whitespace-nowrap bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs py-1 px-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">下载《抱璞守进》</span>
+        </button>
+    </a>
 </body>
 </html> 
